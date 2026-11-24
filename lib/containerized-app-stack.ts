@@ -46,7 +46,7 @@ export class ContainerizedAppStack extends cdk.Stack {
             ENV_VAR_1: "value1",
             ENV_VAR_2: "value2",
           },
-          containerPort: 80,
+          containerPort: 8080,
         },
         memoryLimitMiB: 512, // Default is 512
         publicLoadBalancer: true, // Default is true
