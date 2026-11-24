@@ -21,6 +21,6 @@ COPY --from=build /app/build ./build
 
 USER node
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["npm", "start"]
