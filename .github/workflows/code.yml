@@ -54,5 +54,10 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
           IMAGE_TAG: ${{ env.commit_hash }}-${{ env.timestamp }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./container
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          ECR_REPOSITORY=$(echo "$ECR_REPOSITORY" | tr -d '[:space:]')
+          if [ -z "$ECR_REPOSITORY" ]; then
+            echo "::error::REPO_NAME secret is empty or unset"
+            exit 1
+          fi
+          docker build -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" ./container
+          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
